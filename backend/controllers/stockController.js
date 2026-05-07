@@ -90,9 +90,6 @@ const addStockOut = (req, res) => {
         });
     }
 
-    // ----------------------------
-    // STEP D: TELL WORKER TO SAVE
-    // ----------------------------
     stockModel.addStockOut(
         {
             SparePartId,
@@ -120,12 +117,6 @@ const addStockOut = (req, res) => {
     );
 };
 
-// ==============================
-// FUNCTION 4: GET ALL STOCK OUT
-// ==============================
-// Runs when React opens the
-// StockOut page to show all records
-// Like reading the full departures book
 
 const getAllStockOut = (req, res) => {
 
@@ -148,18 +139,10 @@ const getAllStockOut = (req, res) => {
     });
 };
 
-// ==============================
-// FUNCTION 5: GET ONE STOCK OUT
-// ==============================
-// Runs when React needs to load
-// ONE stock out record
-// Usually to fill the UPDATE form
-// Like finding one page in the
-// departures book by its number
 
 const getStockOutById = (req, res) => {
 
-    // Get the ID from the URL
+    
     const stockOutId = req.params.id;
 
     if (!stockOutId) {
@@ -179,7 +162,6 @@ const getStockOutById = (req, res) => {
             });
         }
 
-        // If nothing found with that ID
         if (!result) {
             return res.status(404).json({
                 success: false,
@@ -195,26 +177,13 @@ const getStockOutById = (req, res) => {
     });
 };
 
-// ==============================
-// FUNCTION 6: UPDATE STOCK OUT
-// ==============================
-// Runs when someone edits a
-// stock out record and saves it
-// Like erasing a page in the
-// departures book and rewriting it
-// ONLY StockOut can be updated
-// exam rule ✅
 
 const updateStockOut = (req, res) => {
 
-    // ----------------------------
-    // STEP A: GET ID FROM URL
-    // ----------------------------
+
     const stockOutId = req.params.id;
 
-    // ----------------------------
-    // STEP B: GET NEW DATA FROM REACT
-    // ----------------------------
+
     const {
         SparePartId,
         StockOutQuantity,
