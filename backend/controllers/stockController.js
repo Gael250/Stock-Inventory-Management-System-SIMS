@@ -191,15 +191,8 @@ const updateStockOut = (req, res) => {
         StockOutDate
     } = req.body;
 
-    // ----------------------------
-    // STEP C: GET USER FROM SESSION
-    // ----------------------------
-    // Record who made this update
     const UserId = req.session.user.userId;
 
-    // ----------------------------
-    // STEP D: VALIDATE DATA
-    // ----------------------------
     if (!SparePartId || !StockOutQuantity ||
         !StockOutUnitPrice || !StockOutDate) {
         return res.status(400).json({
@@ -215,9 +208,6 @@ const updateStockOut = (req, res) => {
         });
     }
 
-    // ----------------------------
-    // STEP E: TELL WORKER TO UPDATE
-    // ----------------------------
     stockModel.updateStockOut(
         stockOutId,
         {
@@ -237,7 +227,7 @@ const updateStockOut = (req, res) => {
                 });
             }
 
-            // Check if anything was actually updated
+            
             if (result.affectedRows === 0) {
                 return res.status(404).json({
                     success: false,
