@@ -40,12 +40,6 @@ const addStockIn = (req, res) => {
     );
 };
 
-// ==============================
-// FUNCTION 2: GET ALL STOCK IN
-// ==============================
-// Runs when React opens the
-// StockIn page to show all arrivals
-// Like reading the full arrivals book
 
 const getAllStockIn = (req, res) => {
 
@@ -68,25 +62,9 @@ const getAllStockIn = (req, res) => {
     });
 };
 
-// ============================================
-// =========== STOCK OUT FUNCTIONS ============
-// ============================================
-
-// ==============================
-// FUNCTION 3: ADD STOCK OUT
-// ==============================
-// Runs when someone fills the
-// StockOut form and clicks SUBMIT
-// Like writing in the departures book:
-// "10 brake pads taken out today"
-// We also get the logged in user ID
-// from the session name tag
 
 const addStockOut = (req, res) => {
 
-    // ----------------------------
-    // STEP A: GET DATA FROM REACT
-    // ----------------------------
     const {
         SparePartId,
         StockOutQuantity,
@@ -94,18 +72,9 @@ const addStockOut = (req, res) => {
         StockOutDate
     } = req.body;
 
-    // ----------------------------
-    // STEP B: GET USER FROM SESSION
-    // ----------------------------
-    // Remember the name tag we gave
-    // the user when they logged in?
-    // req.session.user.userId = their ID
-    // This records WHO took the parts out
+
     const UserId = req.session.user.userId;
 
-    // ----------------------------
-    // STEP C: VALIDATE THE DATA
-    // ----------------------------
     if (!SparePartId || !StockOutQuantity ||
         !StockOutUnitPrice || !StockOutDate) {
         return res.status(400).json({
