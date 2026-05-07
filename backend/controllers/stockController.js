@@ -1,53 +1,9 @@
-// ==============================
-// WHAT DOES THIS FILE DO?
-// ==============================
-// This is the MANAGER for Stock
-// He handles TWO things:
-// 1. Stock In  → parts ARRIVING to store
-// 2. Stock Out → parts LEAVING the store
-//
-// He also generates TWO reports:
-// 1. Daily StockOut Report
-// 2. Daily Stock Status Report
-//
-// Remember exam rules:
-// StockIn  → INSERT only ✅
-// StockOut → INSERT, SELECT, UPDATE, DELETE ✅
-
-// ==============================
-// STEP 1: IMPORT THE MODEL
-// ==============================
-// Call the stock worker
-// and tell him to stand by
 const stockModel = require('../models/stockModel');
-
-// ============================================
-// ============ STOCK IN FUNCTIONS ============
-// ============================================
-
-// ==============================
-// FUNCTION 1: ADD STOCK IN
-// ==============================
-// Runs when someone fills the
-// StockIn form and clicks SUBMIT
-// Like the manager receiving
-// a delivery from a truck
-// and writing it in the arrivals book
 
 const addStockIn = (req, res) => {
 
-    // ----------------------------
-    // STEP A: GET DATA FROM REACT
-    // ----------------------------
-    // Open the envelope from React
-    // Get the spare part ID and
-    // how many arrived and when
     const { SparePartId, StockInQuantity, StockInDate } = req.body;
 
-    // ----------------------------
-    // STEP B: VALIDATE THE DATA
-    // ----------------------------
-    // Check all fields are filled
     if (!SparePartId || !StockInQuantity || !StockInDate) {
         return res.status(400).json({
             success: false,
@@ -55,11 +11,6 @@ const addStockIn = (req, res) => {
         });
     }
 
-    // ----------------------------
-    // STEP C: VALIDATE NUMBERS
-    // ----------------------------
-    // Quantity must be more than zero
-    // You cannot receive -5 brake pads!
     if (StockInQuantity <= 0) {
         return res.status(400).json({
             success: false,
@@ -67,11 +18,6 @@ const addStockIn = (req, res) => {
         });
     }
 
-    // ----------------------------
-    // STEP D: TELL WORKER TO SAVE
-    // ----------------------------
-    // Tell stock worker to save
-    // this arrival in Stock_In table
     stockModel.addStockIn(
         { SparePartId, StockInQuantity, StockInDate },
         (err, result) => {
@@ -84,9 +30,7 @@ const addStockIn = (req, res) => {
                 });
             }
 
-            // ----------------------------
-            // STEP E: SEND SUCCESS BACK
-            // ----------------------------
+
             res.status(201).json({
                 success: true,
                 message: '✅ Stock In recorded successfully!',
